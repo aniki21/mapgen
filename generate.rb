@@ -50,5 +50,7 @@ end
   end
 end
 
-puts grid.map{|row| row.join("") }
-
+# Write the map to a file
+grid.each do |row|
+  File.open("./map_#{Time.now.to_i}.txt",'a'){|f| f.write("#{row.join('')}\n") }
+end
