@@ -1,5 +1,5 @@
 EMPTY = " "
-FLOOR = "0"
+FLOOR = "_"
 WALL = "W"
 
 WIDTH = 50
@@ -38,8 +38,9 @@ while(c < 200)
   c += 1
 end
 
-(1..HEIGHT-1).each do |y|
-  (1..WIDTH-1).each do |x|
+# Add walls next to floors
+(1..HEIGHT-2).each do |y|
+  (1..WIDTH-2).each do |x|
     if grid[y][x] == FLOOR
       # check for empty squares around
       grid[y-1][x] = WALL if grid[y-1][x] == EMPTY
@@ -50,7 +51,25 @@ end
   end
 end
 
+# Remove single-block walls
+(0..HEIGHT-1).each do |y|
+  (0..WIDTH-1).each do |x|
+    if grid[y][x] == WALL
+
+      above = grid[y-1][x]
+      right = grid[y][x+1]
+      below = grid[y+1][x]
+      left = grid[y][x-1]
+
+      if (above == WALL || above == FLOOR) && (right == WALL || right == FLOOR) && (below == WALL || below == FLOOR) && (left == WALL || left == FLOOR)
+        grid[y][x] = FLOOR
+      end
+    end
+  end
+end
+
 # Write the map to a file
+filename = "./maps/#{Time.now.to_i}.txt"
 grid.each do |row|
-  File.open("./map_#{Time.now.to_i}.txt",'a'){|f| f.write("#{row.join('')}\n") }
+  File.open(filename,'a'){|f| f.write("#{row.join('')}\n") }
 end
