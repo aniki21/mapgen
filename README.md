@@ -1,0 +1,1 @@
+Ruby implementation of a random level generator for GameMaker, based on the code in [this video](https://www.youtube.com/watch?v=TZtMNnXFnHE) by [HeartBeast](https://www.youtube.com/channel/UCrHQNOyU1q6BFEfkNq2CYMA)
