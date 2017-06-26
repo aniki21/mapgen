@@ -2,8 +2,8 @@ EMPTY = " "
 FLOOR = "_"
 WALL = "W"
 
-WIDTH = 50
-HEIGHT = 30
+WIDTH = 100
+HEIGHT = 50
 
 grid = Array.new(HEIGHT){ Array.new(WIDTH,EMPTY) }
 
@@ -17,7 +17,7 @@ cdir = rand(4);
 odds = 1
 
 c = 0
-while(c < 200)
+while(c < 1000)
   grid[c_y][c_x] = FLOOR
 
   if rand(odds+1) == odds
@@ -57,15 +57,17 @@ end
     if grid[y][x] == WALL
 
       # Purely for readability
-      above = grid[y-1][x]
-      right = grid[y][x+1]
-      below = grid[y+1][x]
-      left = grid[y][x-1]
+      above = (grid[y-1][x] rescue EMPTY)
+      right = grid[y][x+1] rescue EMPTY
+      below = grid[y+1][x] rescue EMPTY
+      left = grid[y][x-1] rescue EMPTY
 
       # If I'm surrounded by walls and floors, I'm a floor now too
       if (above == WALL || above == FLOOR) && (right == WALL || right == FLOOR) && (below == WALL || below == FLOOR) && (left == WALL || left == FLOOR)
         # SUCCUMB TO PEER PRESSURE
         grid[y][x] = FLOOR
+      elsif above == EMPTY && right == EMPTY && below == EMPTY && left == EMPTY
+        grid[y][x] = EMPTY
       end
     end
   end
