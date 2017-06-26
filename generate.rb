@@ -56,12 +56,15 @@ end
   (0..WIDTH-1).each do |x|
     if grid[y][x] == WALL
 
+      # Purely for readability
       above = grid[y-1][x]
       right = grid[y][x+1]
       below = grid[y+1][x]
       left = grid[y][x-1]
 
+      # If I'm surrounded by walls and floors, I'm a floor now too
       if (above == WALL || above == FLOOR) && (right == WALL || right == FLOOR) && (below == WALL || below == FLOOR) && (left == WALL || left == FLOOR)
+        # SUCCUMB TO PEER PRESSURE
         grid[y][x] = FLOOR
       end
     end
