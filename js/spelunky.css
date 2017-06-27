@@ -1,0 +1,32 @@
+#level{
+  border:10px solid #000;
+  display:block;
+  height:100px;
+  width:100px;
+}
+
+.room{
+  display:inline-block;
+  width:20px;
+  height:20px;
+  float:left;
+  margin:0;
+  padding: 0;
+  border: 1px solid #CCC;
+}
+
+.room.start{
+  background:#0F0;
+}
+
+.room.exit{
+  background:#F00;
+}
+
+.room.primary{
+  background:#00F;
+}
+
+.room.optional{
+  background:#FC0;
+}
