@@ -30,3 +30,7 @@
 .room.optional{
   background:#FC0;
 }
+
+.room.impassable{
+  background:#111;
+}
