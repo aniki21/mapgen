@@ -10,10 +10,13 @@ var impassable = "impassable";
 var generating = false;
 
 // Run the generation
-var generate = function(width,height){
+var generate = function(){
   if(generating == true){
     return true;
   }
+
+  var width = $('input#width').val();
+  var height = $('input#height').val();
 
   // Set ourselves generating
   generating = true;
@@ -31,7 +34,7 @@ var generate = function(width,height){
   }
 
   // build visual grid
-  $('#level').attr("style", "width:"+((width*20))+"px; height:"+((height*20))+"px;");
+  $('#level').attr("style", "width:"+((width*24))+"px; height:"+((height*24))+"px;");
   $.each(grid,function(y,row){
     $.each(row, function(x,col){
       switch(col){
@@ -124,12 +127,50 @@ var generate = function(width,height){
     }
   }
 
-  // Mark empty rooms impassable if there's anything above them
+  // Block off parts
   for(y = 1; y < height; y++){
     for(x = 0; x < width; x++){
+      // This room is void and has something above it
       if(grid[y][x] == undefined && grid[y-1][x] != undefined){
         grid[y][x] = impassable;
         $('div#'+y+'-'+x).addClass("impassable");
+      }
+    }
+  }
+
+  // Add walls and ceilings
+  for(y = 0; y < height; y++){
+    for(x = 0; x < width; x++){
+      // Primary, start and end rooms
+      if(grid[y][x] == primary || grid[y][x] == start || grid[y][x] == exit){
+        // Random chance to have a wall or ceiling if next to a void
+        if(y > 0 && grid[y-1][x] == undefined){
+          if(Math.floor(Math.random()*3) == 1){
+            $('div#'+y+'-'+x).addClass("ceiling");
+          }
+        }
+        if(grid[y][x-1] == undefined){
+          if(Math.floor(Math.random()*3) == 1){
+            $('div#'+y+'-'+x).addClass("wall-left");
+          }
+        }
+        if(grid[y][x+1] == undefined){
+          if(Math.floor(Math.random()*3) == 1){
+            $('div#'+y+'-'+x).addClass("wall-right");
+          }
+        }
+      }
+      else if(grid[y][x] == optional){
+        // Optional rooms are always blocked off to the void
+        if(y > 0 && grid[y-1][x] == undefined){
+          $('div#'+y+'-'+x).addClass("ceiling");
+        }
+        if(grid[y][x-1] == undefined){
+          $('div#'+y+'-'+x).addClass("wall-left");
+        }
+        if(grid[y][x+1] == undefined){
+          $('div#'+y+'-'+x).addClass("wall-right");
+        }
       }
     }
   }
@@ -144,10 +185,3 @@ var clamp = function(number, min, max) {
 }
 
 
-// React to the button click
-$('button#generate').on('click',function(){
-  var width = $('input#width').val();
-  var height = $('input#height').val();
-
-  generate(width,height);
-});

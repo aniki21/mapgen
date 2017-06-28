@@ -1,36 +1,59 @@
+form#generation{
+  margin:20px 0;
+}
+
+p{ text-align:justify; }
+
 #level{
-  border:10px solid #000;
-  display:block;
-  height:100px;
-  width:100px;
+  border: 10px solid #000;
+  display: block;
+  width: 720px;
+  height: 240px;
 }
 
 .room{
-  display:inline-block;
-  width:20px;
-  height:20px;
-  float:left;
-  margin:0;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 0;
   padding: 0;
-  /* border: 1px solid #CCC; */
+  border: 2px solid #FFF;
 }
 
 .room.start{
-  background:#0F0;
+  background: #71b417;
+  border-color: #71b417;
 }
 
 .room.exit{
-  background:#F00;
+  background: #af1616;
+  border-color: #af1616;
 }
 
 .room.primary{
-  background:#00F;
+  background: #176fb2;
+  border-color: #176fb2;
 }
 
 .room.optional{
-  background:#FC0;
+  background: #fc0;
+  border-color: #fc0;
 }
 
 .room.impassable{
-  background:#111;
+  background: #111;
+  border-color: #111;
+}
+
+.room.ceiling{
+  border-top: 2px solid #111;
+}
+
+.room.wall-left{
+  border-left: 2px solid #111;
+}
+
+.room.wall-right{
+  border-right: 2px solid #111;
 }
