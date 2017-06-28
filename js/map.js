@@ -1,8 +1,3 @@
-// Keep within a range
-var clamp = function(number, min, max) {
-  return Math.max(min, Math.min(number, max));
-}
-
 // Setup values
 var empty = "empty";
 var start = "start";
@@ -62,7 +57,7 @@ var generate = function(width,height){
   directions = [-1,1];
 
   // Keep going until we reach the other side
-  while(c_x < width-1){
+  while(c_x < width){
     // Choose whether to go up or down
     d = directions[Math.floor(Math.random() * directions.length)];
 
@@ -76,13 +71,13 @@ var generate = function(width,height){
       // Otherwise move into the next column
       c_x += 1;
     }
-    // Making sure we're still in bounds
-    c_x = clamp(c_x,0,width-1);
 
     // Set the space value and draw it
     grid[c_y][c_x] = primary;
     $('div#'+c_y+'-'+c_x).addClass("primary");
   }
+  // Making sure we're still in bounds
+  c_x = clamp(c_x,0,width-1);
 
   // The last space is our exit
   grid[c_y][c_x] = exit;
@@ -142,6 +137,12 @@ var generate = function(width,height){
   // All done!
   generating = false;
 }
+
+// Keep within a range
+var clamp = function(number, min, max) {
+  return Math.max(min, Math.min(number, max));
+}
+
 
 // React to the button click
 $('button#generate').on('click',function(){
