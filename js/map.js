@@ -76,8 +76,11 @@ var generate = function(){
     }
 
     // Set the space value and draw it
-    grid[c_y][c_x] = primary;
-    $('div#'+c_y+'-'+c_x).addClass("primary");
+    if(c_x < width){
+      // Only if we're still in the grid
+      grid[c_y][c_x] = primary;
+      $('div#'+c_y+'-'+c_x).addClass("primary");
+    }
   }
   // Making sure we're still in bounds
   c_x = clamp(c_x,0,width-1);
