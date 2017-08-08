@@ -73,8 +73,26 @@ end
   end
 end
 
-# Write the map to a file
-filename = "./maps/#{Time.now.to_i}.txt"
-grid.each do |row|
-  File.open(filename,'a'){|f| f.write("#{row.join('')}\n") }
+# # Write the map to a file
+# filename = "./maps/#{Time.now.to_i}.txt"
+# grid.each do |row|
+#   File.open(filename,'a'){|f| f.write("#{row.join('')}\n") }
+# end
+
+# Draw an image
+require 'chunky_png'
+wall_colour = ChunkyPNG::Color.rgba(50,50,50,255)
+floor_colour = ChunkyPNG::Color.rgba(rand(150)+155, rand(150)+155, rand(150)+155, 255)
+png = ChunkyPNG::Image.new(WIDTH,HEIGHT, ChunkyPNG::Color::TRANSPARENT)
+png_name = "./maps/#{Time.now.to_i}.png"
+grid.each_with_index do |row,y|
+  row.each_with_index do |cell,x|
+    case cell
+    when FLOOR
+      png[x,y] = floor_colour
+    when WALL
+      png[x,y] = wall_colour
+    end
+  end
 end
+png.save(png_name, interlace: true)
