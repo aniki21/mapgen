@@ -3,6 +3,7 @@ var empty = "empty";
 var start = "start";
 var primary = "primary";
 var optional = "optional";
+var save = "save"
 var exit = "exit";
 var impassable = "impassable";
 
@@ -34,7 +35,7 @@ var generate = function(){
   }
 
   // build visual grid
-  $('#level').attr("style", "width:"+((width*24))+"px; height:"+((height*24))+"px;");
+  $('#level').attr("style", "width:"+((width*14))+"px; height:"+((height*14))+"px;");
   $.each(grid,function(y,row){
     $.each(row, function(x,col){
       switch(col){
@@ -50,14 +51,15 @@ var generate = function(){
   });
 
   // Set our start position
-  c_x = 0;
-  c_y = Math.floor(Math.random() * height);
+  var c_x = 0;
+  var c_y = Math.floor(Math.random() * height);
   grid[c_y][c_x] = start;
   // Draw it
   $('div#'+c_y+'-'+c_x).addClass("start");
 
   // Set change-of-direction options for up/down
-  directions = [-1,1];
+  var directions = [-1,1];
+  var counter = 0;
 
   // Keep going until we reach the other side
   while(c_x < width){
@@ -77,9 +79,15 @@ var generate = function(){
 
     // Set the space value and draw it
     if(c_x < width){
+      counter++;
       // Only if we're still in the grid
-      grid[c_y][c_x] = primary;
-      $('div#'+c_y+'-'+c_x).addClass("primary");
+      if(counter%height == 0){
+        grid[c_y][c_x] = save;
+        $('div#'+c_y+'-'+c_x).addClass("save");
+      } else {
+        grid[c_y][c_x] = primary;
+        $('div#'+c_y+'-'+c_x).addClass("primary");
+      }
     }
   }
   // Making sure we're still in bounds
@@ -186,5 +194,3 @@ var generate = function(){
 var clamp = function(number, min, max) {
   return Math.max(min, Math.min(number, max));
 }
-
-

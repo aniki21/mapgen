@@ -13,8 +13,8 @@ p{ text-align:justify; }
 
 .room{
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   float: left;
   margin: 0;
   padding: 0;
@@ -22,8 +22,8 @@ p{ text-align:justify; }
 }
 
 .room.start{
-  background: #71b417;
-  border-color: #71b417;
+  background: #fc0;
+  border-color: #fc0;
 }
 
 .room.exit{
@@ -37,13 +37,18 @@ p{ text-align:justify; }
 }
 
 .room.optional{
-  background: #fc0;
-  border-color: #fc0;
+  background: #58ccdd;
+  border-color: #58ccdd;
 }
 
 .room.impassable{
   background: #111;
   border-color: #111;
+}
+
+.room.save{
+  background: #71b417;
+  border-color: #71b417;
 }
 
 .room.ceiling{
